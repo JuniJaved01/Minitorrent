@@ -1,0 +1,49 @@
+# docker-compose.yml -- OWNER: HAMZA
+# docker compose up --build   -> tracker + dashboard + 1 seeder + 2 downloaders
+# then open http://localhost:8501
+x-peer-env: &peer-env
+  MT_HEARTBEAT: "1"        # heartbeat every second so the dashboard moves smoothly
+  MT_UPLOAD_DELAY: "0.3"   # fake delay per chunk so the download is slow enough to watch
+
+services:
+  tracker:
+    build: .
+    command: python -m tracker.server --port 5000 --api-port 8000 --db ""
+    environment:
+      MT_PEER_TIMEOUT: "6"
+    ports:
+      - "5000:5000"   # peers
+      - "8000:8000"   # HTTP API
+
+  dashboard:
+    build: .
+    command: streamlit run dashboard/app.py --server.port 8501 --server.address 0.0.0.0
+    environment:
+      MT_API_URL: http://tracker:8000
+    ports:
+      - "8501:8501"
+    depends_on: [tracker]
+
+  seeder:
+    build: .
+    command: sh -c "python tools/make_test_file.py /data/demo_file.bin 20 && python -m peer.main --tracker tracker:5000 --port 6001 --share /data/demo_file.bin"
+    environment: *peer-env
+    volumes: [swarm:/data]
+    depends_on: [tracker]
+
+  peer2:
+    build: .
+    command: sh -c "while [ ! -f /data/demo_file.bin.mtorrent ]; do sleep 1; done; sleep 3; python -m peer.main --tracker tracker:5000 --port 6002 --download /data/demo_file.bin.mtorrent --out /downloads/demo_file.bin"
+    environment: *peer-env
+    volumes: [swarm:/data]
+    depends_on: [seeder]
+
+  peer3:
+    build: .
+    command: sh -c "while [ ! -f /data/demo_file.bin.mtorrent ]; do sleep 1; done; sleep 6; python -m peer.main --tracker tracker:5000 --port 6003 --download /data/demo_file.bin.mtorrent --out /downloads/demo_file.bin"
+    environment: *peer-env
+    volumes: [swarm:/data]
+    depends_on: [seeder]
+
+volumes:
+  swarm:   # shared only so the downloaders can read the small .mtorrent file

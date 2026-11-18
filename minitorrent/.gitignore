@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+demo_data/
+downloads/
+tracker.db
+tracker.log
+*.progress
+*.mtorrent
+.venv/

@@ -1,0 +1,263 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Space+Grotesk:wght@100..900&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-fixed-dim":"#4edea3","on-tertiary-fixed":"#2a1700","primary-fixed-dim":"#00dce6","inverse-on-surface":"#2b303d","outline-variant":"#3a494b","tertiary-container":"#ffd3a1","surface-container-lowest":"#080e1a","on-error-container":"#ffdad6","surface-variant":"#2f3542","primary":"#e0fdff","surface-dim":"#0e131f","on-tertiary":"#472a00","on-secondary-fixed-variant":"#005236","surface-container-highest":"#2f3542","surface-container-high":"#242a36","on-primary-container":"#006a70","on-tertiary-container":"#875400","tertiary-fixed-dim":"#ffb95f","primary-container":"#00f2fe","on-tertiary-fixed-variant":"#653e00","secondary-container":"#00a572","secondary":"#4edea3","on-background":"#dde2f3","outline":"#849495","tertiary":"#fff5ee","inverse-primary":"#00696f","on-primary":"#00373a","on-primary-fixed":"#002022","error":"#ffb4ab","on-primary-fixed-variant":"#004f53","on-surface-variant":"#b9cacb","on-secondary-container":"#00311f","surface-tint":"#00dce6","surface-container-low":"#161c28","secondary-fixed":"#6ffbbe","surface-container":"#1a202c","inverse-surface":"#dde2f3","error-container":"#93000a","primary-fixed":"#6ff6ff","on-error":"#690005","on-secondary":"#003824","on-secondary-fixed":"#002113","surface-bright":"#343946","background":"#0e131f","on-surface":"#dde2f3","surface":"#0e131f","tertiary-fixed":"#ffddb8"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-md":"0.75rem","gutter":"0.75rem","space-sm":"0.5rem","margin":"1rem","space-lg":"1rem","gutter-dense":"0.375rem","space-xl":"1.5rem","space-xs":"0.25rem"},fontFamily:{"headline-md":["Space Grotesk"],"headline-lg":["Space Grotesk"],"headline-xl":["Space Grotesk"],"body-lg":["Geist"],"label-sm":["JetBrains Mono"],"label-lg":["JetBrains Mono"],"body-sm":["Geist"],"label-md":["JetBrains Mono"],"body-md":["Geist"]},fontSize:{"headline-md":["18px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"500"}],"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"600"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"label-sm":["10px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"400"}],"label-lg":["13px",{lineHeight:"18px",letterSpacing:"0.02em",fontWeight:"500"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"label-md":["11px",{lineHeight:"16px",letterSpacing:"0.04em",fontWeight:"500"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}]}}}};</script></head><body class="bg-surface text-on-surface font-body-md text-body-md"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-space-lg flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-xl flex-shrink-0"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-primary-container text-[20px]">hub</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md text-primary tracking-tight">Mini Torrent</span><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">P2P Protocol Engine</span></div></div><nav class="hidden lg:flex items-center gap-space-xs bg-surface-container-lowest p-space-xs rounded-lg" data-active-classes="bg-surface-container-high text-primary font-bold"><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="mode-selector" href="#">Mode Selector</a><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="client-terminal" href="#">Client Terminal</a><a aria-current="page" class="px-space-md py-space-xs rounded-lg transition-colors bg-surface-container-high text-primary font-bold" data-path="tracker-node" href="#">Tracker Node</a></nav></div><div class="flex items-center gap-space-lg flex-shrink-0"><div class="hidden md:flex items-center gap-space-md px-space-md py-space-xs bg-surface-container-low rounded-lg"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary-fixed-dim animate-pulse"></span><span class="font-label-sm text-label-sm text-secondary uppercase">Online</span></div><span class="text-outline-variant font-label-sm text-label-sm">/</span><div class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm text-on-surface-variant">DHT:</span><span class="font-label-sm text-label-sm text-primary">842</span></div><span class="text-outline-variant font-label-sm text-label-sm">/</span><div class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm text-on-surface-variant">Port:</span><span class="font-label-sm text-label-sm text-on-surface">6881</span></div></div><div class="flex items-center gap-space-md px-space-md py-space-xs bg-surface-container-low rounded-lg"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary-container text-[16px]">download</span><span class="font-label-sm text-label-sm text-on-surface-variant">DL:</span><span class="font-label-sm text-label-sm text-primary">48.2 MB/s</span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">upload</span><span class="font-label-sm text-label-sm text-on-surface-variant">UL:</span><span class="font-label-sm text-label-sm text-secondary">1.4 MB/s</span></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-lg"><div class="flex flex-col gap-space-lg px-space-md"><div class="px-space-md"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Node Operations</span></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-surface-container-high text-primary font-bold"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="mode-selector" href="#"><span class="material-symbols-outlined text-[18px]">toggle_on</span><span class="font-body-md text-body-md">Mode Switcher</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="client-terminal" href="#"><span class="material-symbols-outlined text-[18px]">folder_data</span><span class="font-body-md text-body-md">Swarm Files</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-colors bg-surface-container-high text-primary font-bold" data-path="tracker-node" href="#"><span class="material-symbols-outlined text-[18px]">dns</span><span class="font-body-md text-body-md">Tracker Registry</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="network-telemetry" href="#"><span class="material-symbols-outlined text-[18px]">query_stats</span><span class="font-body-md text-body-md">Telemetry &amp; Peers</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="network-settings" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span class="font-body-md text-body-md">Configuration</span></a></nav></div><div class="px-space-md"><div class="p-space-md bg-surface-container-low rounded-lg flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant">Buffer Cache</span><span class="font-label-sm text-label-sm text-primary">92%</span></div><div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden"><div class="h-full bg-primary-container w-[92%]"></div></div><div class="flex justify-between items-center mt-space-xs"><span class="font-label-sm text-label-sm text-outline">Mem: 512 MB</span><span class="font-label-sm text-label-sm text-secondary">Sync OK</span></div></div></div></aside><div class="pl-64"><main class="relative pt-16 bg-surface min-h-screen w-full px-space-xl py-space-lg"><div class="flex flex-col w-full gap-space-lg">
+<!-- Ambient Micro-Header / Telemetry Summary -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-lg shadow-xl overflow-hidden">
+<div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-gradient-to-br from-primary-container/10 via-secondary-fixed-dim/5 to-transparent blur-3xl pointer-events-none"></div>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Tracker Title & Meta -->
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center relative shadow-inner">
+<span class="material-symbols-outlined text-primary-container text-[24px]">dns</span>
+<span class="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-secondary-fixed-dim animate-ping"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-lg text-headline-lg text-primary tracking-tight">Tracker Swarm Node</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm text-secondary uppercase tracking-wider">v2.4.1-rc</span>
+<span class="px-space-xs py-0.5 rounded bg-secondary-container/20 font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold">Master Sync</span>
+</div>
+<span class="font-label-md text-label-md text-outline">Announce URI: <span class="text-on-surface-variant font-label-md text-label-md">udp://tracker.p2p.internal:6969/announce</span></span>
+</div>
+</div>
+<!-- Quick Server Actions -->
+<div class="flex items-center gap-space-sm flex-wrap"><button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface transition-all text-label-md font-label-md" id="resyncBtn"><span class="material-symbols-outlined text-[16px] text-primary-container">sync</span>Refresh Swarm</button><button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-primary-container/15 hover:bg-primary-container/25 text-primary-fixed-dim shadow-sm transition-all text-label-md font-label-md" id="exportManifestBtn"><span class="material-symbols-outlined text-[16px]">file_download</span>Export List</button></div>
+</div>
+<!-- Telemetry Badges Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md mt-space-lg"><div class="p-space-md bg-surface-container rounded-lg flex flex-col justify-between"><span class="font-label-sm text-label-sm text-outline uppercase">Connected Devices</span><div class="flex items-baseline gap-space-xs mt-space-xs"><span class="font-headline-xl text-headline-xl text-primary font-bold" id="stat-devices-count">18</span><span class="font-label-sm text-label-sm text-secondary">All Online</span></div></div><div class="p-space-md bg-surface-container rounded-lg flex flex-col justify-between"><span class="font-label-sm text-label-sm text-outline uppercase">Total Shared Files</span><div class="flex items-baseline gap-space-xs mt-space-xs"><span class="font-headline-xl text-headline-xl text-on-background font-bold">142</span><span class="font-label-sm text-label-sm text-outline">files</span></div></div><div class="p-space-md bg-surface-container rounded-lg flex flex-col justify-between"><span class="font-label-sm text-label-sm text-outline uppercase">Network Activity</span><div class="flex items-baseline gap-space-xs mt-space-xs"><span class="font-headline-xl text-headline-xl text-primary-container font-bold">840</span><span class="font-label-sm text-label-sm text-primary">MB/s aggregate</span></div></div></div>
+</div>
+<!-- Master-Detail Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Connected End Devices (Col span 5 on desktop) -->
+<div class="xl:col-span-5 bg-surface-container-lowest rounded-xl p-space-md flex flex-col gap-space-md shadow-lg"><div class="flex items-center justify-between px-space-xs"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[20px]">devices</span><span class="font-headline-md text-headline-md text-primary">Connected Devices</span><span class="px-space-xs py-0.5 rounded-full bg-surface-container-high font-label-sm text-label-sm text-primary-fixed-dim">18</span></div></div><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[16px]">search</span><input class="w-full bg-surface-container-low pl-9 pr-space-md py-1.5 rounded-lg text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container" id="deviceSearchInput" placeholder="Search devices..." type="text"></div><div class="flex flex-col gap-space-xs max-h-[720px] overflow-y-auto pr-1" id="deviceListContainer"><div class="device-card active group relative p-space-md bg-surface-container rounded-lg cursor-pointer transition-all hover:bg-surface-container-high" data-device-id="dev-01"><div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container rounded-l-lg"></div><div class="flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[18px]">laptop_mac</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-background text-sm group-hover:text-primary">Alpha-Workstation-01</span><span class="font-label-sm text-label-sm text-outline-variant">192.168.1.104</span></div></div><span class="px-space-xs py-0.5 rounded font-label-sm text-label-sm bg-secondary-container/20 text-secondary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim animate-pulse"></span>Online</span></div></div><div class="device-card group relative p-space-md bg-surface-container rounded-lg cursor-pointer transition-all hover:bg-surface-container-high" data-device-id="dev-02"><div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent rounded-l-lg group-hover:bg-outline"></div><div class="flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-secondary text-[18px]">dns</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-background text-sm group-hover:text-primary">Storage-NAS-Tower</span><span class="font-label-sm text-label-sm text-outline-variant">192.168.1.200</span></div></div><span class="px-space-xs py-0.5 rounded font-label-sm text-label-sm bg-secondary-container/20 text-secondary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>Online</span></div></div><div class="device-card group relative p-space-md bg-surface-container rounded-lg cursor-pointer transition-all hover:bg-surface-container-high" data-device-id="dev-03"><div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent rounded-l-lg group-hover:bg-outline"></div><div class="flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-outline text-[18px]">laptop_mac</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-background text-sm group-hover:text-primary">MacBook-Pro-M3</span><span class="font-label-sm text-label-sm text-outline-variant">10.0.4.45</span></div></div><span class="px-space-xs py-0.5 rounded font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Offline</span></div></div><div class="device-card group relative p-space-md bg-surface-container rounded-lg cursor-pointer transition-all hover:bg-surface-container-high" data-device-id="dev-04"><div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent rounded-l-lg group-hover:bg-outline"></div><div class="flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">developer_board</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-background text-sm group-hover:text-primary">Linux-Cluster-Node-B</span><span class="font-label-sm text-label-sm text-outline-variant">172.16.0.88</span></div></div><span class="px-space-xs py-0.5 rounded font-label-sm text-label-sm bg-secondary-container/20 text-secondary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim animate-pulse"></span>Online</span></div></div><div class="device-card group relative p-space-md bg-surface-container rounded-lg cursor-pointer transition-all hover:bg-surface-container-high" data-device-id="dev-05"><div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent rounded-l-lg group-hover:bg-outline"></div><div class="flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-outline text-[18px]">desktop_windows</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-background text-sm group-hover:text-primary">Arch-Desktop-X</span><span class="font-label-sm text-label-sm text-outline-variant">192.168.1.187</span></div></div><span class="px-space-xs py-0.5 rounded font-label-sm text-label-sm bg-secondary-container/20 text-secondary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>Online</span></div></div><div class="device-card group relative p-space-md bg-surface-container rounded-lg cursor-pointer transition-all hover:bg-surface-container-high" data-device-id="dev-06"><div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent rounded-l-lg group-hover:bg-outline"></div><div class="flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-outline text-[18px]">cloud_sync</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-background text-sm group-hover:text-primary">AWS-Relay-East-04</span><span class="font-label-sm text-label-sm text-outline-variant">54.210.12.8</span></div></div><span class="px-space-xs py-0.5 rounded font-label-sm text-label-sm bg-secondary-container/20 text-secondary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>Online</span></div></div></div></div>
+<!-- RIGHT COLUMN: File Inventory Per Selected End Device (Col span 7 on desktop) -->
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<!-- Dynamic Header for Currently Selected Device -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-lg relative overflow-hidden"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md"><div class="flex flex-col"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary-container text-[20px]">devices</span><span class="font-headline-lg text-headline-lg text-primary" id="selectedDeviceHeaderTitle">Alpha-Workstation-01</span><span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant" id="selectedDeviceIpBadge">192.168.1.104</span></div><span class="font-body-sm text-body-sm text-outline mt-1">Files currently shared by this device.</span></div><div class="flex items-center gap-space-xs"><button class="px-space-md py-space-xs rounded-lg bg-error-container/20 hover:bg-error-container/40 text-error transition-colors font-label-md text-label-md flex items-center gap-1" id="disconnectPeerBtn"><span class="material-symbols-outlined text-[15px]">power_off</span>Disconnect</button></div></div><div class="grid grid-cols-2 gap-space-sm mt-space-md pt-space-md border-t border-surface-container-high"><div class="flex flex-col"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Shared Files</span><span class="font-headline-lg text-headline-lg text-primary-fixed-dim" id="selectedFilesCount">34 Files</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Total Size</span><span class="font-headline-lg text-headline-lg text-on-surface" id="selectedFilesSize">1.2 TB</span></div></div></div>
+<!-- File Inventory Table Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-lg flex flex-col gap-space-sm"><div class="flex items-center justify-between px-space-xs pb-space-xs"><div class="flex items-center gap-space-sm"><span class="font-headline-md text-headline-md text-on-background">Shared Files</span><span class="font-label-sm text-label-sm text-outline" id="tableRecordCountDisplay">6 files shown</span></div></div><div class="overflow-x-auto rounded-lg bg-surface-container-low"><table class="w-full text-left border-collapse"><thead><tr class="bg-surface-container-high text-outline font-label-sm text-label-sm uppercase tracking-wider"><th class="py-space-sm px-space-md">File Name</th><th class="py-space-sm px-space-sm">Size</th><th class="py-space-sm px-space-sm">Status</th><th class="py-space-sm px-space-sm text-right">Action</th></tr></thead><tbody class="font-body-sm text-body-sm text-on-surface" id="fileTableBody"><tr class="hover:bg-surface-container transition-colors"><td class="py-space-sm px-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary-container text-[18px]">draft</span><span class="font-label-md text-label-md text-primary font-medium">ubuntu-24.04-live-server-amd64.iso</span></div></td><td class="py-space-sm px-space-sm font-label-md text-label-md text-on-background">2.6 GB</td><td class="py-space-sm px-space-sm"><div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary"><span class="material-symbols-outlined text-[14px]">groups</span>24 seeds</div></td><td class="py-space-sm px-space-sm text-right"><button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="View"><span class="material-symbols-outlined text-[16px]">visibility</span></button></td></tr><tr class="hover:bg-surface-container transition-colors"><td class="py-space-sm px-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-secondary text-[18px]">database</span><span class="font-label-md text-label-md text-primary font-medium">common-crawl-2024-subset-q3.tar.zst</span></div></td><td class="py-space-sm px-space-sm font-label-md text-label-md text-on-background">412.8 GB</td><td class="py-space-sm px-space-sm"><div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary"><span class="material-symbols-outlined text-[14px]">groups</span>8 seeds</div></td><td class="py-space-sm px-space-sm text-right"><button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="View"><span class="material-symbols-outlined text-[16px]">visibility</span></button></td></tr><tr class="hover:bg-surface-container transition-colors"><td class="py-space-sm px-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">folder_zip</span><span class="font-label-md text-label-md text-primary font-medium">blender-render-cache-scene-09.blendx</span></div></td><td class="py-space-sm px-space-sm font-label-md text-label-md text-on-background">48.2 GB</td><td class="py-space-sm px-space-sm"><div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary"><span class="material-symbols-outlined text-[14px]">groups</span>4 seeds</div></td><td class="py-space-sm px-space-sm text-right"><button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="View"><span class="material-symbols-outlined text-[16px]">visibility</span></button></td></tr><tr class="hover:bg-surface-container transition-colors"><td class="py-space-sm px-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-outline text-[18px]">image</span><span class="font-label-md text-label-md text-primary font-medium">satellite-imagery-tiles-utm32n.geotiff</span></div></td><td class="py-space-sm px-space-sm font-label-md text-label-md text-on-background">115.4 GB</td><td class="py-space-sm px-space-sm"><div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary"><span class="material-symbols-outlined text-[14px]">groups</span>15 seeds</div></td><td class="py-space-sm px-space-sm text-right"><button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="View"><span class="material-symbols-outlined text-[16px]">visibility</span></button></td></tr><tr class="hover:bg-surface-container transition-colors"><td class="py-space-sm px-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-outline text-[18px]">draft</span><span class="font-label-md text-label-md text-primary font-medium">debian-12.5.0-netinst.iso</span></div></td><td class="py-space-sm px-space-sm font-label-md text-label-md text-on-background">640 MB</td><td class="py-space-sm px-space-sm"><div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary"><span class="material-symbols-outlined text-[14px]">groups</span>42 seeds</div></td><td class="py-space-sm px-space-sm text-right"><button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="View"><span class="material-symbols-outlined text-[16px]">visibility</span></button></td></tr><tr class="hover:bg-surface-container transition-colors"><td class="py-space-sm px-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary-fixed text-[18px]">folder_zip</span><span class="font-label-md text-label-md text-primary font-medium">npm-offline-cache-v18.tar.gz</span></div></td><td class="py-space-sm px-space-sm font-label-md text-label-md text-on-background">18.4 GB</td><td class="py-space-sm px-space-sm"><div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary"><span class="material-symbols-outlined text-[14px]">groups</span>11 seeds</div></td><td class="py-space-sm px-space-sm text-right"><button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="View"><span class="material-symbols-outlined text-[16px]">visibility</span></button></td></tr></tbody></table></div></div>
+</div>
+</div>
+<!-- Real-Time Interactive Script for Selecting Device & Dynamic Inventory Swapping -->
+<script>
+    (function initTrackerConsole() {
+      // Mock Data Store for End Devices and their distinct hosted files
+      const deviceDataStore = {
+        'dev-01': {
+          name: 'Alpha-Workstation-01',
+          ip: '192.168.1.104:6881',
+          fileCountText: '34 Hosted Files',
+          totalSize: '1.28 TB',
+          swarms: '34 / 34 Active',
+          latency: '12ms',
+          files: [
+            { name: 'ubuntu-24.04-live-server-amd64.iso', path: '/srv/torrent/isos/distros/', size: '2.6 GB', pieces: '1,332 / 1,332', pct: '100%', hash: 'c84f...a90b', seeds: 24, leeches: 3, age: '48s ago' },
+            { name: 'common-crawl-2024-subset-q3.tar.zst', path: '/datasets/ml-training/corpus/', size: '412.8 GB', pieces: '211,350 / 211,350', pct: '100%', hash: '993e...31fd', seeds: 8, leeches: 14, age: '2m ago' },
+            { name: 'blender-render-cache-scene-09.blendx', path: '/renders/vfx-pipeline/ep4/', size: '48.2 GB', pieces: '24,678 / 24,678', pct: '100%', hash: '77bb...ee12', seeds: 4, leeches: 1, age: '12s ago' },
+            { name: 'satellite-imagery-tiles-utm32n.geotiff', path: '/geodata/orthomosaics/2024/', size: '115.4 GB', pieces: '59,084 / 59,084', pct: '100%', hash: '418a...2299', seeds: 15, leeches: 0, age: '4m ago' },
+            { name: 'debian-12.5.0-netinst.iso', path: '/srv/torrent/isos/debian/', size: '640 MB', pieces: '320 / 320', pct: '100%', hash: 'f012...884a', seeds: 42, leeches: 6, age: '1m ago' },
+            { name: 'npm-offline-cache-v18.tar.gz', path: '/devops/build-cache/', size: '18.4 GB', pieces: '9,420 / 9,420', pct: '100%', hash: '33ab...12cc', seeds: 11, leeches: 2, age: '58s ago' }
+          ]
+        },
+        'dev-02': {
+          name: 'Storage-NAS-Tower',
+          ip: '192.168.1.200:51413',
+          fileCountText: '58 Hosted Files',
+          totalSize: '4.82 TB',
+          swarms: '58 / 58 Active',
+          latency: '4ms',
+          files: [
+            { name: 'postgres-backup-cluster-archive-2024.sql.gz', path: '/vault/db-dumps/daily/', size: '89.4 GB', pieces: '45,772 / 45,772', pct: '100%', hash: 'e2a1...67cc', seeds: 3, leeches: 0, age: '15s ago' },
+            { name: 'archlinux-2024.05.01-x86_64.iso', path: '/vault/mirrors/archlinux/', size: '920 MB', pieces: '460 / 460', pct: '100%', hash: '12bc...bb90', seeds: 104, leeches: 8, age: '22s ago' },
+            { name: 'huggingface-llama3-weights-fp16.bin', path: '/vault/ai/models/weights/', size: '142.1 GB', pieces: '72,755 / 72,755', pct: '100%', hash: '88ee...5541', seeds: 31, leeches: 19, age: '1m ago' },
+            { name: 'raw-4k-telemetry-camera-feed-ch1.mkv', path: '/vault/cctv/footage/2024-05/', size: '64.5 GB', pieces: '33,024 / 33,024', pct: '100%', hash: '30fe...7712', seeds: 2, leeches: 0, age: '3m ago' },
+            { name: 'synthetic-mesh-lidar-pointclouds.las', path: '/vault/spatial/lidar/', size: '12.8 GB', pieces: '6,553 / 6,553', pct: '100%', hash: 'bcde...1090', seeds: 18, leeches: 4, age: '1m ago' }
+          ]
+        },
+        'dev-03': {
+          name: 'MacBook-Pro-M3',
+          ip: '10.0.4.45:6882',
+          fileCountText: '12 Hosted Files',
+          totalSize: '210.4 GB',
+          swarms: '12 / 12 Active',
+          latency: '28ms',
+          files: [
+            { name: 'xcode-simulator-runtimes-ios17.dmg', path: '/Users/dev/Library/Developer/', size: '7.8 GB', pieces: '3,993 / 3,993', pct: '100%', hash: '900a...fa11', seeds: 9, leeches: 1, age: '5m ago' },
+            { name: 'rust-toolchain-nightly-apple-darwin.tar.xz', path: '/Users/dev/.rustup/archive/', size: '1.4 GB', pieces: '716 / 716', pct: '100%', hash: '321a...bc55', seeds: 16, leeches: 0, age: '12m ago' },
+            { name: 'video-assets-raw-prores-422.mov', path: '/Users/dev/Movies/RawProjects/', size: '44.2 GB', pieces: '22,630 / 22,630', pct: '100%', hash: '8877...44cc', seeds: 3, leeches: 2, age: '4m ago' }
+          ]
+        },
+        'dev-04': {
+          name: 'Linux-Cluster-Node-B',
+          ip: '172.16.0.88:8999',
+          fileCountText: '26 Hosted Files',
+          totalSize: '1.95 TB',
+          swarms: '26 / 26 Active',
+          latency: '9ms',
+          files: [
+            { name: 'rocky-linux-9-x86_64-dvd.iso', path: '/mnt/storage/isos/', size: '9.8 GB', pieces: '5,017 / 5,017', pct: '100%', hash: 'aabb...1234', seeds: 55, leeches: 12, age: '30s ago' },
+            { name: 'container-images-k8s-mirror-bundle.tar', path: '/mnt/storage/registry/', size: '82.0 GB', pieces: '41,984 / 41,984', pct: '100%', hash: 'ccdd...5678', seeds: 28, leeches: 4, age: '1m ago' }
+          ]
+        },
+        'dev-05': {
+          name: 'Arch-Desktop-X',
+          ip: '192.168.1.187:6881',
+          fileCountText: '5 Hosted Files',
+          totalSize: '34.2 GB',
+          swarms: '5 / 5 Active',
+          latency: '42ms',
+          files: [
+            { name: 'vulkan-shader-cache-unified.bin', path: '/home/user/.cache/shaders/', size: '4.2 GB', pieces: '2,150 / 2,150', pct: '100%', hash: '1122...3344', seeds: 14, leeches: 2, age: '6m ago' },
+            { name: 'steam-proton-ge-custom.tar.gz', path: '/home/user/.compatibility/', size: '1.1 GB', pieces: '563 / 563', pct: '100%', hash: '5566...7788', seeds: 82, leeches: 1, age: '45s ago' }
+          ]
+        },
+        'dev-06': {
+          name: 'AWS-Relay-East-04',
+          ip: '54.210.12.8:6969',
+          fileCountText: '7 Hosted Files',
+          totalSize: '89.1 GB',
+          swarms: '7 / 7 Active',
+          latency: '18ms',
+          files: [
+            { name: 'aws-telemetry-logs-rolling-24h.jsonl.zst', path: '/var/log/aggregates/', size: '12.4 GB', pieces: '6,348 / 6,348', pct: '100%', hash: '9900...aabb', seeds: 12, leeches: 5, age: '1m ago' },
+            { name: 'cloudflare-warp-edge-routing-tables.bin', path: '/opt/network/routes/', size: '450 MB', pieces: '225 / 225', pct: '100%', hash: 'beef...cafe', seeds: 40, leeches: 0, age: '20s ago' }
+          ]
+        }
+      };
+
+      const deviceCards = document.querySelectorAll('.device-card');
+      const headerTitle = document.getElementById('selectedDeviceHeaderTitle');
+      const ipBadge = document.getElementById('selectedDeviceIpBadge');
+      const filesCount = document.getElementById('selectedFilesCount');
+      const filesSize = document.getElementById('selectedFilesSize');
+      const swarmsBadge = document.getElementById('selectedDeviceSwarms');
+      const tableBody = document.getElementById('fileTableBody');
+      const countDisplay = document.getElementById('tableRecordCountDisplay');
+      const pingBtn = document.getElementById('pingDeviceBtn');
+
+      function renderDeviceFiles(deviceId) {
+        const data = deviceDataStore[deviceId];
+        if (!data) return;
+
+        // Update header & metric banners
+        headerTitle.textContent = data.name;
+        ipBadge.textContent = data.ip;
+        filesCount.textContent = data.fileCountText;
+        filesSize.textContent = data.totalSize;
+        swarmsBadge.textContent = data.swarms;
+        pingBtn.innerHTML = `<span class="material-symbols-outlined text-[15px] text-primary">network_ping</span> Ping (${data.latency})`;
+        countDisplay.textContent = `Showing ${data.files.length} of ${data.fileCountText.replace(' Hosted Files', '')} files`;
+
+        // Render Table Rows
+        tableBody.innerHTML = '';
+        data.files.forEach(f => {
+          const row = document.createElement('tr');
+          row.className = 'hover:bg-surface-container transition-colors group';
+          row.innerHTML = `
+            <td class="py-space-sm px-space-md">
+              <div class="flex items-center gap-space-sm">
+                <span class="material-symbols-outlined text-primary-container text-[18px]">terminal</span>
+                <div class="flex flex-col">
+                  <span class="font-label-md text-label-md text-primary font-medium">${f.name}</span>
+                  <span class="font-label-sm text-label-sm text-outline">${f.path}</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-space-sm px-space-sm font-label-md text-label-md text-on-background">${f.size}</td>
+            <td class="py-space-sm px-space-sm">
+              <div class="flex flex-col gap-1 w-28">
+                <div class="flex justify-between font-label-sm text-label-sm text-outline">
+                  <span>${f.pieces}</span>
+                  <span class="text-secondary font-bold">${f.pct}</span>
+                </div>
+                <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+                  <div class="h-full bg-secondary-fixed-dim w-full"></div>
+                </div>
+              </div>
+            </td>
+            <td class="py-space-sm px-space-sm font-label-sm text-label-sm text-on-surface-variant font-mono">
+              <span class="px-1 py-0.5 rounded bg-surface-container-highest">${f.hash}</span>
+            </td>
+            <td class="py-space-sm px-space-sm">
+              <div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary">
+                <span class="material-symbols-outlined text-[14px]">groups</span>
+                ${f.seeds} seeds / ${f.leeches} leeches
+              </div>
+            </td>
+            <td class="py-space-sm px-space-sm font-label-sm text-label-sm text-outline">${f.age}</td>
+            <td class="py-space-sm px-space-sm text-right">
+              <button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Inspect Blocks">
+                <span class="material-symbols-outlined text-[16px]">visibility</span>
+              </button>
+              <button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Force Announce">
+                <span class="material-symbols-outlined text-[16px]">refresh</span>
+              </button>
+            </td>
+          `;
+          tableBody.appendChild(row);
+        });
+      }
+
+      // Card selection event listener
+      deviceCards.forEach(card => {
+        card.addEventListener('click', () => {
+          deviceCards.forEach(c => {
+            c.classList.remove('active');
+            const ind = c.querySelector('.absolute.left-0');
+            if (ind) {
+              ind.classList.remove('bg-primary-container');
+              ind.classList.add('bg-transparent');
+            }
+          });
+          card.classList.add('active');
+          const indicator = card.querySelector('.absolute.left-0');
+          if (indicator) {
+            indicator.classList.remove('bg-transparent');
+            indicator.classList.add('bg-primary-container');
+          }
+          const devId = card.getAttribute('data-device-id');
+          renderDeviceFiles(devId);
+        });
+      });
+
+      // Filter input listener for devices
+      const searchInput = document.getElementById('deviceSearchInput');
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        deviceCards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          card.style.display = text.includes(query) ? '' : 'none';
+        });
+      });
+
+      // Interactive Action Feedback
+      document.getElementById('pingDeviceBtn').addEventListener('click', function() {
+        const originalText = this.innerHTML;
+        this.innerHTML = '<span class="material-symbols-outlined text-[15px] animate-spin">sync</span> Pong! 8ms (0.0% loss)';
+        setTimeout(() => { this.innerHTML = originalText; }, 1800);
+      });
+
+      document.getElementById('verifyIntegrityBtn').addEventListener('click', function() {
+        const originalText = this.innerHTML;
+        this.innerHTML = '<span class="material-symbols-outlined text-[15px] text-secondary animate-bounce">check_circle</span> Hashes 100% OK';
+        setTimeout(() => { this.innerHTML = originalText; }, 2200);
+      });
+
+      document.getElementById('resyncBtn').addEventListener('click', function() {
+        this.classList.add('animate-pulse');
+        setTimeout(() => { this.classList.remove('animate-pulse'); }, 1000);
+      });
+
+      document.getElementById('exportManifestBtn').addEventListener('click', function() {
+        const toast = document.createElement('div');
+        toast.className = 'fixed bottom-6 right-6 bg-surface-container-high border border-primary-container/30 text-primary px-4 py-2 rounded-lg shadow-2xl font-label-md text-label-md z-50 flex items-center gap-2';
+        toast.innerHTML = '<span class="material-symbols-outlined text-secondary text-[18px]">download_done</span> tracker-manifest-snapshot.json generated';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+      });
+
+    })();
+  </script>
+</div></main></div>
+
+</body></html>
