@@ -1,0 +1,49 @@
+/* Source of ui/static/app.css. Edit here, then run build.sh / build.bat. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body { margin: 0; padding: 0; background: #0e131f; }
+  body { overscroll-behavior: none; -webkit-font-smoothing: antialiased; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #2f3542; border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined"; font-weight: normal; font-style: normal; line-height: 1;
+    letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal;
+    direction: ltr; -webkit-font-feature-settings: "liga"; font-feature-settings: "liga"; -webkit-font-smoothing: antialiased;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24; vertical-align: middle; overflow: hidden;
+  }
+  button:disabled { opacity: .6; cursor: not-allowed; }
+}
+
+@layer components {
+  .input { @apply bg-[#070d18] border border-white/[0.12] rounded-lg px-space-md py-2 font-label-lg text-label-lg text-on-surface placeholder:text-outline outline-none transition-shadow; }
+  .input:focus { @apply border-primary-container shadow-[0_0_0_1px_#00f2fe]; }
+  .field-label { @apply font-label-sm text-label-sm text-outline uppercase tracking-wider; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-sm whitespace-nowrap; }
+  .btn-secondary { @apply inline-flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-sm whitespace-nowrap; }
+  .btn-ghost { @apply inline-flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg border border-white/10 text-on-surface font-label-md text-label-md hover:bg-white/5 transition-all whitespace-nowrap; }
+  .btn-danger { @apply inline-flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg border border-[#ef4444]/40 text-[#ef4444] font-label-md text-label-md font-bold hover:bg-[#ef4444]/10 active:scale-[0.98] transition-all whitespace-nowrap; }
+  .chip-btn { @apply px-space-sm py-1 rounded bg-surface-container-high font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-bright transition-colors; }
+  .fp-row { @apply flex items-center gap-space-sm px-space-md py-2 text-left font-label-lg text-label-lg text-on-surface hover:bg-primary-container/[0.06] border-b border-white/[0.03]; }
+}
+
+/* ---- title screen animation ---- */
+@keyframes introUp { from { opacity: 0; transform: translateY(18px) scale(.98); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes logoGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(0,242,254,0); } 50% { box-shadow: 0 0 32px 4px rgba(0,242,254,.25); } }
+@keyframes logoSpin { from { transform: rotate(-180deg) scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes titleShine { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes modalPop { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+.intro { opacity: 0; animation: introUp .7s cubic-bezier(.2,.7,.2,1) forwards; }
+.intro-1 { animation-delay: .05s; } .intro-2 { animation-delay: .35s; } .intro-3 { animation-delay: .55s; }
+.intro-4 { animation-delay: .7s; } .intro-5 { animation-delay: .9s; } .intro-6 { animation-delay: 1.05s; }
+.intro-fast { animation: introUp .35s ease-out both; }
+.logo-glow { animation: introUp .7s cubic-bezier(.2,.7,.2,1) forwards, logoGlow 3s ease-in-out 1s infinite; }
+.logo-spin { animation: logoSpin 1s cubic-bezier(.2,.7,.2,1) .15s both; }
+#titleText { background: linear-gradient(90deg, #e0fdff 0%, #e0fdff 40%, #00f2fe 50%, #e0fdff 60%, #e0fdff 100%); background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: introUp .7s cubic-bezier(.2,.7,.2,1) .35s forwards, titleShine 4s linear 1.2s infinite; }
+.modal-pop { animation: modalPop .18s ease-out; }
+@media (prefers-reduced-motion: reduce) { .intro, .logo-glow, .logo-spin, #titleText, .intro-fast { animation: none !important; opacity: 1 !important; } }

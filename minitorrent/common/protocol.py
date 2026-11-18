@@ -25,10 +25,17 @@ GET_PEERS = "GET_PEERS"  # peer -> tracker : "who has this file?"
 HEARTBEAT = "HEARTBEAT"  # peer -> tracker : "I am still alive, here is my progress"
 PEERS = "PEERS"  # tracker -> peer : the answer to GET_PEERS
 OK = "OK"  # tracker -> peer : generic "done"
+PING = "PING"  # client -> tracker : "are you a MiniTorrent tracker?" (used by the Connect screen)
+PONG = "PONG"  # tracker -> client : the answer to PING, with the tracker's name and version
+ANNOUNCE = "ANNOUNCE"  # peer -> tracker : "this is my device and EVERY file in my shared folder" (one message)
+LIST_FILES = "LIST_FILES"  # peer -> tracker : "which files exist in the swarm?"
+FILES = "FILES"  # tracker -> peer : the answer to LIST_FILES (names, sizes, seeders, leechers)
 # ---- message types: peer <-> peer ----
 HAVE_BITMAP = "HAVE_BITMAP"  # request AND reply: "which chunks do you hold?"
 REQUEST_CHUNK = "REQUEST_CHUNK"  # "send me chunk number i"
 CHUNK_DATA = "CHUNK_DATA"  # reply: header + the raw chunk bytes
+GET_METADATA = "GET_METADATA"  # "send me the .mtorrent of this file" (so nobody has to copy .mtorrent files)
+METADATA = "METADATA"  # reply: the metadata dict (name, size, chunk hashes...)
 # ---- used by everyone ----
 ERROR = "ERROR"  # something went wrong, see the "reason" field
 

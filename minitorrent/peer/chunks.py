@@ -17,8 +17,9 @@ def sha256_hex(data):
     return hashlib.sha256(data).hexdigest()  # hash the bytes and format as hex
 
 
-def create_metadata(path, chunk_size=None):
-    """Read a file chunk by chunk and build its metadata dictionary."""
+def create_metadata(path, chunk_size=None, progress=None):
+    """Read a file chunk by chunk and build its metadata dictionary.
+    progress(done_bytes, total_bytes) is called after every chunk if given (the UI shows 'Hashing 40 %')."""
     if chunk_size is None:  # caller did not choose a chunk size
         chunk_size = config.CHUNK_SIZE  # use the project default (256 KB)
     size = os.path.getsize(path)  # total file size in bytes
@@ -31,6 +32,8 @@ def create_metadata(path, chunk_size=None):
                 break  # stop reading
             hashes.append(sha256_hex(piece))  # remember this chunk's hash
             whole.update(piece)  # feed the same bytes into the whole-file hash
+            if progress is not None:  # someone wants to show progress
+                progress(len(hashes) * chunk_size, size)  # bytes hashed so far (approximately)
     file_id = sha256_hex("".join(hashes).encode("ascii"))  # file_id = SHA-256 of all hashes joined
     return {  # this dictionary IS the .mtorrent content
         "name": os.path.basename(path),  # file name without folders

@@ -31,4 +31,8 @@ def create_app(registry):
     def events():
         return registry.events_snapshot()  # newest joins / timeouts / completions
 
+    @app.get("/devices")  # GET /devices
+    def devices():
+        return registry.devices_snapshot()  # every device with the files in its shared folder
+
     return app  # uvicorn serves this object

@@ -75,6 +75,10 @@ The receiver reads exactly 4 bytes, then exactly N bytes, then exactly `payload_
 | `GET_PEERS` | peer → tracker | file_id, port | `PEERS` {peers: [{ip, port, chunks_held}]} |
 | `HAVE_BITMAP` | peer → peer | file_id | `HAVE_BITMAP` {bitmap: [1,0,1,...]} |
 | `REQUEST_CHUNK` | peer → peer | file_id, index | `CHUNK_DATA` {index, hash, payload_len} + raw bytes |
+| `PING` | client → tracker | - | `PONG` {name, version, your_ip} (the UI's "Test connection") |
+| `ANNOUNCE` | GUI client → tracker | port, device {name, os, lan_ip}, files [same fields as HEARTBEAT, one per file] | `OK` {your_ip}, or `ERROR` "disconnected by server" |
+| `LIST_FILES` | client → tracker | - | `FILES` {files: [{file_id, name, size, seeders, leechers, holders, missing_chunks}]} |
+| `GET_METADATA` | peer → peer | file_id | `METADATA` + the `.mtorrent` JSON as raw payload |
 | `ERROR` | any | reason | - |
 
 Example of one chunk request on the wire:
@@ -182,3 +186,34 @@ Because a chunk is added to `in_progress` under the lock, two workers can never 
 - **256 KB chunks:** small enough that a failed chunk is cheap to re-download, large enough that a 50 MB file has only 200 hashes.
 - **Rarest-first:** rare chunks are the ones most likely to be lost if a peer leaves, and the peers holding them are the bottleneck. Fetching them first keeps every source busy.
 - **Tracker stores no file data:** it stays tiny, and killing it does not stop transfers that are already running between peers.
+
+## 11. The desktop UI (ui/)
+
+`python -m ui` starts a small FastAPI server on **127.0.0.1:8080 only** and opens one page with three screens
+(title, client, server) built from the mockups in `Minitorrent UIUX/`. The browser never talks to the network;
+it only calls this local server, which does the real work:
+
+```mermaid
+flowchart LR
+    B["Browser<br/>ui/static (HTML + JS)"] -- "GET /api/state every 1 s<br/>POST /api/... on clicks" --> U["ui/app.py<br/>127.0.0.1:8080"]
+    U -- "Server mode" --> T["TrackerServer + Registry<br/>0.0.0.0:5000 (same process)"]
+    U -- "Client mode" --> N["peer/node.py ClientNode<br/>PeerServer 0.0.0.0:6001+"]
+    N -- "PING / ANNOUNCE / LIST_FILES / GET_PEERS" --> T2["any tracker"]
+    N <-- "GET_METADATA / HAVE_BITMAP / REQUEST_CHUNK" --> P["other peers"]
+```
+
+What the client node adds on top of the CLI peer (`peer/main.py`):
+
+| Feature | How |
+|---|---|
+| Whole shared folder instead of one file | the folder is rescanned every 3 s; new files are hashed once (cache in `<folder>/.minitorrent/cache.json`) and seeded, deleted files stop being shared |
+| One heartbeat for all files | `ANNOUNCE` carries the device and every file. Files missing from it are removed on the tracker, so the server always shows exactly what is in each folder |
+| No `.mtorrent` copying | the downloader asks a peer for the metadata (`GET_METADATA`) and accepts it only if SHA-256(all chunk hashes) equals the file id it asked for. Every chunk is still hash-checked as before |
+| Downloads land in the shared folder | chunks go to `<folder>/.minitorrent/incoming/`, the finished file is moved into the folder and seeded at once |
+| Device list on the server | the tracker keeps a device table (PC name, OS, IP, port, last seen). Devices go grey after the peer timeout and disappear after 10 minutes |
+| Disconnect button | the tracker drops the device's files and refuses its `ANNOUNCE` for 60 s |
+| Health colours | **green** 2+ sources, **amber** one source, **red** if a running download is below 100 KB/s, or if some chunk is held by nobody online |
+| Same-PC peers seen from the LAN | a peer that registered from 127.0.0.1 is handed out as the tracker PC's LAN IP to askers on other PCs |
+
+The old Streamlit dashboard (`dashboard/app.py`) is kept for Docker only; its chunk maps, availability strips,
+event feed and speed chart now live on the **Telemetry & Peers** screen.

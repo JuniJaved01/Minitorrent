@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Torrent</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/fonts/fonts.css">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md">
+
+<!-- ================= TOP BAR ================= -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+  <div class="h-16 w-full px-space-lg flex items-center justify-between gap-space-lg">
+    <div class="flex items-center gap-space-xl flex-shrink-0">
+      <a href="#/" class="flex items-center gap-space-sm">
+        <div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-primary-container text-[20px]">hub</span></div>
+        <div class="flex flex-col"><span class="font-headline-md text-headline-md text-primary tracking-tight">Mini Torrent</span><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">P2P Protocol Engine</span></div>
+      </a>
+      <nav class="hidden lg:flex items-center gap-space-xs bg-surface-container-lowest p-space-xs rounded-lg" id="topNav">
+        <a class="top-link px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-colors" data-route="/" href="#/">Mode Selector</a>
+        <a class="top-link px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-colors" data-route="/client" href="#/client">Client Terminal</a>
+        <a class="top-link px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-colors" data-route="/server" href="#/server">Tracker Node</a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-space-lg flex-shrink-0" id="topStatus"></div>
+  </div>
+</header>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest z-40 hidden md:flex flex-col justify-between py-space-lg">
+  <div class="flex flex-col gap-space-lg px-space-md">
+    <div class="px-space-md"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Node Operations</span></div>
+    <nav class="flex flex-col gap-space-xs" id="sideNav">
+      <a class="side-link flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-colors" data-route="/" href="#/"><span class="material-symbols-outlined text-[18px]">toggle_on</span><span class="font-body-md text-body-md">Mode Switcher</span></a>
+      <a class="side-link flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-colors" data-route="/client" href="#/client"><span class="material-symbols-outlined text-[18px]">folder_data</span><span class="font-body-md text-body-md">Swarm Files</span></a>
+      <a class="side-link flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-colors" data-route="/server" href="#/server"><span class="material-symbols-outlined text-[18px]">dns</span><span class="font-body-md text-body-md">Tracker Registry</span></a>
+      <a class="side-link flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-colors" data-route="/telemetry" href="#/telemetry"><span class="material-symbols-outlined text-[18px]">query_stats</span><span class="font-body-md text-body-md">Telemetry &amp; Peers</span></a>
+      <a class="side-link flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-colors" data-route="/config" href="#/config"><span class="material-symbols-outlined text-[18px]">settings</span><span class="font-body-md text-body-md">Configuration</span></a>
+    </nav>
+  </div>
+  <div class="px-space-md" id="sideFooter"></div>
+</aside>
+
+<!-- ================= MAIN ================= -->
+<div class="md:pl-64">
+  <main class="relative pt-16 bg-surface min-h-screen w-full">
+    <div class="px-space-lg md:px-space-xl py-space-lg">
+
+      <!-- TITLE / MODE SELECTOR -->
+      <section class="view" data-view="/">
+        <div class="relative w-full min-h-[calc(100vh-6rem)] flex flex-col justify-center items-center overflow-hidden rounded-xl">
+          <canvas id="swarmCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+          <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(14,19,31,0)_0%,rgba(14,19,31,0.85)_70%)]"></div>
+          <div class="relative z-10 flex flex-col items-center justify-center max-w-3xl text-center px-space-md">
+            <div class="intro intro-1 relative w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center mb-space-lg shadow-md border border-outline-variant/20 logo-glow">
+              <span class="material-symbols-outlined text-primary-container text-[32px] logo-spin">hub</span>
+            </div>
+            <h1 class="intro intro-2 font-headline-xl text-[44px] leading-[52px] text-primary tracking-tight font-bold mb-space-xs" id="titleText">Mini Torrent</h1>
+            <p class="intro intro-3 font-headline-md text-headline-md text-on-surface-variant font-light mb-space-xl">P2P File Sharing Engine</p>
+            <p class="intro intro-4 font-body-md text-body-md text-outline max-w-lg mb-space-xl">Select how you want to use Mini Torrent today. You can switch between roles at any time, and one PC can be both.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg w-full">
+              <a class="intro intro-5 group flex flex-col justify-between p-space-xl rounded-xl bg-surface-container-high/90 hover:bg-surface-container-highest transition-all duration-300 shadow-lg text-left cursor-pointer border border-outline-variant/10 hover:border-primary-container/40 hover:-translate-y-1" href="#/client" id="btn-client-mode">
+                <div class="flex flex-col">
+                  <div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center mb-space-lg text-primary-container group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[24px]">download</span></div>
+                  <h2 class="font-headline-lg text-headline-lg text-primary font-semibold mb-space-xs group-hover:text-primary-fixed transition-colors">Client Mode</h2>
+                  <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-space-xl">Connect to a server, share the files in your folder, and download files from other devices.</p>
+                </div>
+                <div class="inline-flex items-center justify-center gap-space-xs w-full py-space-sm px-space-md rounded-lg bg-surface-container text-primary font-label-md text-label-md group-hover:bg-primary-container group-hover:text-on-primary-container transition-all"><span id="clientCta">Start Sharing</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span></div>
+              </a>
+              <a class="intro intro-6 group flex flex-col justify-between p-space-xl rounded-xl bg-surface-container-high/90 hover:bg-surface-container-highest transition-all duration-300 shadow-lg text-left cursor-pointer border border-outline-variant/10 hover:border-secondary/40 hover:-translate-y-1" href="#/server" id="btn-server-mode">
+                <div class="flex flex-col">
+                  <div class="w-12 h-12 rounded-xl bg-secondary-container/10 flex items-center justify-center mb-space-lg text-secondary group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[24px]">dns</span></div>
+                  <h2 class="font-headline-lg text-headline-lg text-secondary-fixed font-semibold mb-space-xs group-hover:text-secondary transition-colors">Server Mode</h2>
+                  <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-space-xl">Host the tracker, get an address to share, and see every connected device and its files.</p>
+                </div>
+                <div class="inline-flex items-center justify-center gap-space-xs w-full py-space-sm px-space-md rounded-lg bg-surface-container text-secondary font-label-md text-label-md group-hover:bg-secondary group-hover:text-on-secondary transition-all"><span id="serverCta">Open Manager</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span></div>
+              </a>
+            </div>
+            <p class="intro intro-6 mt-space-xl font-label-sm text-label-sm text-outline">Press <kbd class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface">1</kbd> for Client or <kbd class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface">2</kbd> for Server</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLIENT -->
+      <section class="view hidden" data-view="/client"><div id="clientView"></div></section>
+
+      <!-- SERVER -->
+      <section class="view hidden" data-view="/server"><div id="serverView"></div></section>
+
+      <!-- TELEMETRY -->
+      <section class="view hidden" data-view="/telemetry"><div id="telemetryView"></div></section>
+
+      <!-- CONFIG -->
+      <section class="view hidden" data-view="/config"><div id="configView"></div></section>
+    </div>
+  </main>
+</div>
+
+<!-- ================= MODAL ================= -->
+<div id="modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-space-lg">
+  <div id="modalBox" class="w-full max-w-lg bg-[#0e1526]/95 border border-primary-container/20 rounded-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.6)] max-h-[90vh] flex flex-col modal-pop"></div>
+</div>
+
+<!-- ================= TOAST ================= -->
+<div id="toast" class="fixed bottom-6 right-6 z-[70] flex items-center gap-space-sm px-space-lg py-space-md rounded-lg bg-surface-container-high border border-primary-container/20 shadow-xl translate-y-12 opacity-0 pointer-events-none transition-all duration-300">
+  <span class="material-symbols-outlined text-primary-container text-[18px]" id="toastIcon">info</span>
+  <span class="font-body-sm text-body-sm text-on-surface" id="toastMsg"></span>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

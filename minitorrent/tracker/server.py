@@ -13,11 +13,13 @@ import socket  # TCP sockets
 import threading  # thread per client + reaper thread
 
 from common import config  # default ports and timeout
+from common import netutil  # PC name and LAN IP
 from common import protocol as P  # send_msg / recv_msg and message names
 from tracker.registry import Registry  # the peer table
 from tracker.storage import Storage  # SQLite persistence
 
 log = logging.getLogger("tracker")  # our logger
+VERSION = "2.0"  # shown on the Connect screen after a successful PING
 
 
 class TrackerServer:
@@ -84,8 +86,21 @@ class TrackerServer:
     def _answer(self, ip, header):
         """Build the reply for one tracker message."""
         mtype = header.get("type")  # which message?
-        if "file_id" not in header:  # every tracker message needs a file_id
+        if mtype == P.PING:  # the Connect screen checks that a tracker really lives here
+            return {"type": P.PONG, "name": netutil.device_name(), "version": VERSION,
+                    "your_ip": ip, "timeout": self.registry.timeout}  # tracker identity
+        if mtype == P.LIST_FILES:  # a client wants the swarm's file list
+            return {"type": P.FILES, "files": self.registry.list_files()}  # names, sizes, seeders...
+        if mtype == P.ANNOUNCE:  # a GUI client reports its device + every file
+            if "port" not in header:  # we must know where it listens
+                return {"type": P.ERROR, "reason": "port missing"}  # refuse
+            if not self.registry.announce(ip, header):  # the server disconnected this device
+                return {"type": P.ERROR, "reason": "disconnected by server"}  # tell it
+            return {"type": P.OK, "your_ip": ip}  # accepted
+        if "file_id" not in header:  # every other tracker message needs a file_id
             return {"type": P.ERROR, "reason": "file_id missing"}  # refuse
+        if mtype in (P.REGISTER, P.HEARTBEAT) and self.registry.is_kicked(ip, header.get("port", -1)):  # banned
+            return {"type": P.ERROR, "reason": "disconnected by server"}  # refuse
         if mtype == P.REGISTER:  # a peer joins
             if "port" not in header:  # we must know where it listens
                 return {"type": P.ERROR, "reason": "port missing"}  # refuse
@@ -100,6 +115,11 @@ class TrackerServer:
         if mtype == P.GET_PEERS:  # a peer asks who has the file
             exclude = (ip, int(header["port"])) if "port" in header else None  # do not return the asker
             peers = self.registry.get_peers(header["file_id"], exclude=exclude)  # look up
+            if not netutil.is_loopback(ip):  # the asker is on ANOTHER computer
+                me = netutil.lan_ip()  # this tracker's LAN address
+                for p in peers:  # a peer on the tracker's own PC registered as 127.0.0.1 ...
+                    if netutil.is_loopback(p["ip"]):  # ... which means nothing to a remote asker
+                        p["ip"] = me  # so give out the tracker PC's LAN address instead
             log.info("GET_PEERS  %s file=%s -> %d peers", ip, header["file_id"][:8], len(peers))  # log it
             return {"type": P.PEERS, "peers": peers}  # the list
         return {"type": P.ERROR, "reason": "unknown message type"}  # anything else

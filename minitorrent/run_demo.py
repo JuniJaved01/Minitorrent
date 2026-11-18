@@ -1,6 +1,6 @@
 """
 run_demo.py  --  OWNER: HAMZA
-One command starts the whole demo: tracker + dashboard + peers.
+One command starts the whole demo: the MiniTorrent UI in Server mode (it hosts the tracker) + peers.
 
     python run_demo.py                      -> 1 seeder, 2 downloaders that also share with each other
     python run_demo.py --scenario failover  -> 3 seeders, 1 downloader, one seeder is KILLED mid-download
@@ -20,7 +20,7 @@ import webbrowser  # opening the dashboard in the browser
 
 ROOT = os.path.dirname(os.path.abspath(__file__))  # the project folder
 DATA = os.path.join(ROOT, "demo_data")  # everything the demo creates goes here
-TRACKER_PORT, API_PORT, DASH_PORT = 5000, 8000, 8501  # fixed demo ports
+TRACKER_PORT, UI_PORT = 5000, 8080  # fixed demo ports
 procs = []  # every process we started, so we can stop them all
 
 
@@ -43,9 +43,9 @@ def wait_for(check, what, seconds=30):
 
 
 def api_up():
-    """True when the tracker's HTTP API answers."""
-    try:  # connection is refused while the tracker starts
-        urllib.request.urlopen("http://127.0.0.1:%d/health" % API_PORT, timeout=1).read()  # GET /health
+    """True when the UI (and the tracker inside it) answers."""
+    try:  # connection is refused while it starts
+        urllib.request.urlopen("http://127.0.0.1:%d/api/state" % UI_PORT, timeout=1).read()  # GET /api/state
         return True  # it answered
     except OSError:  # not up yet
         return False  # keep waiting
@@ -74,7 +74,7 @@ def main():
     ap.add_argument("--size", type=int, default=None, help="demo file size in MB")  # default depends on scenario
     ap.add_argument("--delay", type=float, default=0.3, help="fake seconds per uploaded chunk (so you can watch)")
     ap.add_argument("--kill-after", type=float, default=7.0, help="failover: seconds before a seeder is killed")
-    ap.add_argument("--no-dashboard", action="store_true", help="do not start Streamlit")  # headless runs
+    ap.add_argument("--no-dashboard", action="store_true", help="run only the tracker, without the UI")  # headless
     ap.add_argument("--no-browser", action="store_true", help="do not open the browser")  # for screenshots
     args = ap.parse_args()  # read sys.argv
 
@@ -95,17 +95,16 @@ def main():
 
     signal.signal(signal.SIGTERM, signal.default_int_handler)  # treat 'terminate' like Ctrl+C
     try:  # Ctrl+C lands in 'finally'
-        start("tracker", ["-m", "tracker.server", "--port", str(TRACKER_PORT),
-                          "--api-port", str(API_PORT), "--db", ""], env)  # no SQLite in the demo = clean start
-        wait_for(api_up, "the tracker API")  # do not start peers before the tracker listens
-        if not args.no_dashboard:  # start the dashboard
-            start("dashboard", ["-m", "streamlit", "run", os.path.join("dashboard", "app.py"),
-                                "--server.port", str(DASH_PORT), "--server.headless", "true",
-                                "--browser.gatherUsageStats", "false"], env)  # headless = no email prompt
-            time.sleep(3)  # give Streamlit a moment
+        if args.no_dashboard:  # tracker only
+            start("tracker", ["-m", "tracker.server", "--port", str(TRACKER_PORT), "--no-api", "--db", ""], env)
+            time.sleep(1.5)  # let it bind the port
+        else:  # the UI hosts the tracker itself (Server mode) and shows every peer
+            start("ui", ["-m", "ui", "--port", str(UI_PORT), "--serve", str(TRACKER_PORT), "--db", "",
+                         "--no-browser"], env)  # no SQLite in the demo = clean start
+            wait_for(api_up, "the MiniTorrent UI")  # do not start peers before the tracker listens
             if not args.no_browser:  # open the page for the user
-                webbrowser.open("http://localhost:%d" % DASH_PORT)  # default browser
-            print("\n   DASHBOARD:  http://localhost:%d\n" % DASH_PORT)  # in case the browser did not open
+                webbrowser.open("http://localhost:%d/#/server" % UI_PORT)  # default browser
+            print("\n   UI:  http://localhost:%d/#/server   (Telemetry & Peers shows the chunk maps)\n" % UI_PORT)
 
         peer(6001, tracker, args.delay, env, share=source)  # the first seeder
         wait_for(lambda: os.path.exists(mtorrent), "the .mtorrent file")  # it writes the metadata
