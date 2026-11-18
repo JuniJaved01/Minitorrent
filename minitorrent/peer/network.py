@@ -8,6 +8,7 @@ Everything a peer does on the network:
 """
 
 import hashlib  # hash of the chunk we send (goes into the CHUNK_DATA header)
+import json  # metadata travels as JSON bytes
 import socket  # TCP sockets
 import threading  # one thread per connection + heartbeat thread
 import time  # sleep for the simulated upload delay
@@ -24,6 +25,7 @@ class PeerServer:
         self.port = port  # the TCP port other peers connect to
         self.stores = {}  # file_id -> chunk store (what we can upload)
         self.uploaded = 0  # total bytes uploaded (shown on the dashboard)
+        self.uploaded_by_file = {}  # file_id -> bytes uploaded for that file (per-file upload speed in the UI)
         self.upload_delay = config.UPLOAD_DELAY if upload_delay is None else upload_delay  # fake slowness
         self._lock = threading.Lock()  # protects stores, uploaded and the client list
         self._upload_slot = threading.Lock()  # with a delay, only one chunk is "on the wire" at a time
@@ -35,6 +37,11 @@ class PeerServer:
         """Start sharing a file."""
         with self._lock:  # stores is shared between threads
             self.stores[file_id] = store  # remember the store under its file_id
+
+    def remove_store(self, file_id):
+        """Stop sharing a file (paused, deleted, or moved)."""
+        with self._lock:  # stores is shared between threads
+            self.stores.pop(file_id, None)  # forget it; requests for it now get "unknown file"
 
     def start(self):
         """Open the listening socket and start accepting in a background thread."""
@@ -98,6 +105,12 @@ class PeerServer:
             store = self.stores.get(header.get("file_id"))  # the file the peer asks about
         if store is None:  # we do not share that file
             return {"type": P.ERROR, "reason": "unknown file"}, None  # say so
+        if mtype == P.GET_METADATA:  # "send me the .mtorrent of this file"
+            meta = getattr(store, "meta", None)  # DummyChunkStore has no metadata
+            if meta is None:  # nothing to give
+                return {"type": P.ERROR, "reason": "no metadata"}, None  # say so
+            body = json.dumps(meta).encode("utf-8")  # sent as PAYLOAD: big files have too many hashes for a header
+            return {"type": P.METADATA}, body  # the receiver re-checks the file_id
         if mtype == P.HAVE_BITMAP:  # "which chunks do you hold?"
             return {"type": P.HAVE_BITMAP, "bitmap": store.bitmap()}, None  # list of 0/1
         if mtype == P.REQUEST_CHUNK:  # "send me chunk i"
@@ -110,6 +123,8 @@ class PeerServer:
                     time.sleep(self.upload_delay)  # pretend the upload takes time
             with self._lock:  # counter is shared
                 self.uploaded += len(data)  # count the bytes for the dashboard
+                fid = header.get("file_id")  # which file
+                self.uploaded_by_file[fid] = self.uploaded_by_file.get(fid, 0) + len(data)  # per-file counter
             reply = {"type": P.CHUNK_DATA, "index": index, "hash": hashlib.sha256(data).hexdigest()}  # header
             return reply, data  # header + raw chunk bytes
         return {"type": P.ERROR, "reason": "unknown message type"}, None  # anything else is an error
@@ -136,6 +151,24 @@ class PeerClient:
             raise P.ProtocolError(header.get("reason", "bad chunk reply"))  # report it
         return payload  # caller verifies the hash against the .mtorrent
 
+    def get_metadata(self, addr, file_id):
+        """Ask a peer for a file's metadata and make sure it really belongs to file_id."""
+        header, payload = P.request(addr, {"type": P.GET_METADATA, "file_id": file_id}, timeout=self.timeout)  # ask
+        meta = None  # stays None on an ERROR reply
+        if header.get("type") == P.METADATA and payload:  # the JSON is in the payload
+            try:  # the bytes might be garbage
+                meta = json.loads(payload.decode("utf-8"))  # bytes -> dict
+            except ValueError:  # not JSON
+                meta = None  # handled below
+        if not isinstance(meta, dict) or not isinstance(meta.get("hashes"), list):  # missing / malformed
+            raise P.ProtocolError(header.get("reason", "bad metadata reply"))  # report it
+        joined = "".join(meta["hashes"]).encode("ascii")  # file_id = SHA-256 of all chunk hashes joined
+        if hashlib.sha256(joined).hexdigest() != file_id or meta.get("file_id") != file_id:  # forged metadata
+            raise P.ProtocolError("metadata does not match the file id")  # never trust it
+        if len(meta["hashes"]) != meta.get("num_chunks"):  # inconsistent counts
+            raise P.ProtocolError("metadata chunk count is wrong")  # refuse
+        return meta  # safe to use: every chunk will still be hash-checked
+
 
 class TrackerClient:
     """Talks to the tracker: register, get the peer list, send heartbeats."""
@@ -160,6 +193,28 @@ class TrackerClient:
         if header.get("type") != P.PEERS:  # tracker answered with an ERROR
             raise P.ProtocolError(header.get("reason", "bad peers reply"))  # report it
         return [(p["ip"], p["port"]) for p in header["peers"]]  # dicts -> address tuples
+
+    def ping(self):
+        """Is a MiniTorrent tracker listening at tracker_addr? Returns its PONG header."""
+        header, _ = P.request(self.tracker_addr, {"type": P.PING}, timeout=self.timeout)  # ask
+        if header.get("type") != P.PONG:  # something else answered
+            raise P.ProtocolError("this address is not a MiniTorrent server")  # explain
+        return header  # name, version, your_ip
+
+    def announce(self, device, files):
+        """Report this device and the state of every file it shares/downloads (one message)."""
+        msg = {"type": P.ANNOUNCE, "port": self.my_port, "device": device, "files": files}  # the message
+        header, _ = P.request(self.tracker_addr, msg, timeout=self.timeout)  # send and wait
+        if header.get("type") != P.OK:  # refused (for example: kicked by the server)
+            raise P.ProtocolError(header.get("reason", "announce refused"))  # report it
+        return header  # contains your_ip
+
+    def list_files(self):
+        """Every file the swarm currently offers, with seeders/leechers."""
+        header, _ = P.request(self.tracker_addr, {"type": P.LIST_FILES}, timeout=self.timeout)  # ask
+        if header.get("type") != P.FILES:  # error reply
+            raise P.ProtocolError(header.get("reason", "bad files reply"))  # report it
+        return header["files"]  # list of dicts
 
     def heartbeat(self, state):
         """Send one HEARTBEAT carrying our current progress."""
