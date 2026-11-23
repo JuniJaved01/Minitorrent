@@ -4,6 +4,12 @@
 
 A small, working BitTorrent-style system. A lightweight **tracker** helps peers find each other. Each **peer** splits files into 256 KB chunks, downloads different chunks from several peers **in parallel**, verifies every chunk with **SHA-256**, and uploads the chunks it already has. A **desktop-style web UI** (title screen, client screen, server screen) shares whole folders and shows the whole swarm.
 
+<p align="center">
+  <a href="https://github.com/JuniJaved01/Minitorrent/releases/tag/beta">
+    <img src="https://img.shields.io/badge/%E2%AC%87%20Download-Windows%20Build-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows Build">
+  </a>
+</p>
+
 | Title | Client | Server |
 |---|---|---|
 | ![Title](minitorrent/docs/ui-title.png) | ![Client](minitorrent/docs/ui-client.png) | ![Server](minitorrent/docs/ui-server.png) |
