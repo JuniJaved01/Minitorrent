@@ -32,7 +32,10 @@ from tracker.registry import Registry  # tracker memory
 from tracker.server import VERSION, TrackerServer  # tracker TCP side
 from tracker.storage import Storage  # SQLite
 
-STATIC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")  # the HTML/JS/CSS
+if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+    STATIC = os.path.join(sys._MEIPASS, "ui", "static")
+else:
+    STATIC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 ALLOWED_HOSTS = {"localhost", "127.0.0.1", "[::1]"}  # the UI is for THIS computer only
 
 
