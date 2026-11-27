@@ -1,0 +1,53 @@
+name: Build macOS (Apple Silicon)
+
+# ── When to run ──────────────────────────────────────────────
+# Option A: trigger manually from the Actions tab
+on:
+  workflow_dispatch:
+
+# ── The build job ────────────────────────────────────────────
+jobs:
+  build:
+    runs-on: macos-14                      # Apple Silicon (M1) runner
+    defaults:
+      run:
+        working-directory: minitorrent     # your code lives in this subfolder
+
+    steps:
+      # 1. Check out the repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python (ARM64 build)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Install project dependencies + PyInstaller
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      # 4. Build the binary using your existing spec file
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller minitorrent.spec --noconfirm
+
+      # 5. Copy the launch script and README into the output
+      - name: Prepare distribution folder
+        run: |
+          cp ../build_macos/run_minitorrent.command dist/
+          cp ../build_macos/README.txt dist/
+          chmod +x dist/run_minitorrent.command
+          chmod +x dist/minitorrent
+
+      # 6. Upload the build as a downloadable artifact
+      - name: Upload macOS build
+        uses: actions/upload-artifact@v4
+        with:
+          name: Minitorrent-macOS-AppleSilicon
+          path: minitorrent/dist/
+          retention-days: 90
