@@ -34,7 +34,7 @@ jobs:
       # 4. Build the binary using your existing spec file
       - name: Build with PyInstaller
         run: |
-          pyinstaller minitorrent.spec --noconfirm
+          pyinstaller minitorrent_macos.spec --noconfirm
 
       # 5. Copy the launch script and README into the output
       - name: Prepare distribution folder
